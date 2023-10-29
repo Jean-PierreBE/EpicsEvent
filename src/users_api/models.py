@@ -6,6 +6,8 @@ MESSAGE_NO_EMAIL = "Please fill an email adress !"
 MESSAGE_NO_PSEUDO = "Please fill a pseudo !"
 MESSAGE_NO_ADMIN = "This role is not allowed !"
 # Create your models here.
+
+
 class MyUserManager(BaseUserManager):
     def create_user(self, pseudo, first_name, last_name, email, role, password=None):
         if not pseudo:
@@ -45,7 +47,7 @@ class UserProfile(AbstractBaseUser):
         ('GES', 'Gestion')
     )
     pseudo = models.CharField(unique=True, max_length=10, blank=False)
-    first_name = models.CharField( max_length=100, blank=True)
+    first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(unique=True, max_length=100, blank=False)
     role = models.CharField(max_length=55, choices=ROLES, verbose_name="Type de rôle")
