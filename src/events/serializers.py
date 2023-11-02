@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from django.db.models import Q
-from events.models import Customer, Contract, Event
+from events.models import Customer
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -8,3 +7,10 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = "__all__"
+
+
+class CustomerUpdSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = ['id', 'enterprise_name', 'client_name', 'information', 'email', 'phone']
