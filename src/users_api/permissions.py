@@ -6,7 +6,7 @@ class OnlyGes(permissions.BasePermission):
 
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
-                return True
+            return True
 
         if request.user.role == 'GES':
             return True
@@ -14,7 +14,7 @@ class OnlyGes(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         """Check user is trying to edit their own profile"""
         if request.method in permissions.SAFE_METHODS:
-                return True
+            return True
 
         if request.user.role == 'GES':
-                return True
+            return True

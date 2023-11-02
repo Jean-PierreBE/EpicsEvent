@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.core.exceptions import ValidationError
 
 MESSAGE_NO_EMAIL = "Please fill an email adress !"
 MESSAGE_NO_PSEUDO = "Please fill a pseudo !"
