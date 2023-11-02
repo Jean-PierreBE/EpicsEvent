@@ -15,7 +15,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
     authentication_classes = [JWTAuthentication]
-    permission_classes = (IsAuthenticated, permissions.UpdateOwnProfile,)
+    permission_classes = (IsAuthenticated, permissions.OnlyGes)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('pseudo', 'first_name', 'last_name', 'email', 'role')
 

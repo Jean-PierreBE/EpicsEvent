@@ -15,7 +15,7 @@ class Customer(models.Model):
     author_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                     verbose_name="Contact Commercial")
     time_created = models.DateTimeField(auto_now_add=True)
-    time_modified = models.DateTimeField(default=datetime.now(), blank=True)
+    time_modified = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
         return self.enterprise_name
@@ -43,6 +43,6 @@ class Event(models.Model):
     end_date = models.DateTimeField()
     location = models.CharField(max_length=55, verbose_name="localisation")
     notes = models.TextField(max_length=2048, blank=True, verbose_name="Evènement")
-    attendees = models.IntegerField(default=0)
+    attendees_count = models.IntegerField(default=0)
     author_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)

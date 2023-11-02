@@ -41,7 +41,6 @@ class MyUserManager(BaseUserManager):
 
 class UserProfile(AbstractBaseUser):
     ROLES = (
-        ('ADM', 'Administrateur'),
         ('COM', 'Commercial'),
         ('SUP', 'Support'),
         ('GES', 'Gestion')
@@ -62,10 +61,7 @@ class UserProfile(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         if self.is_admin is True:
-            self.role = "ADM"
-        else:
-            if self.role == "ADM":
-                raise ValidationError(MESSAGE_NO_ADMIN)
+            self.role = "GES"
         super(UserProfile, self).save(*args, **kwargs)
 
     def has_perm(self, perm, obj=None):
