@@ -1,9 +1,8 @@
 # Create your views here.
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from events.permissions import OnlyCom
 from events.models import Event
-from events.serializers.event import EventSerializer, EventUpdSerializer
+from events.serializers.seri_event import EventSerializer, EventUpdSerializer
 
 
 class EventView(viewsets.ModelViewSet):

@@ -3,7 +3,6 @@ from events.models import Contract
 
 
 class ContractSerializer(serializers.ModelSerializer):
-    #customer = CustomerSerializer(many=True)
     class Meta:
         model = Contract
         fields = "__all__"
