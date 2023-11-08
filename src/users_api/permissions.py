@@ -5,8 +5,6 @@ class OnlyGes(permissions.BasePermission):
     """Allow user to edit with role = 'GES' """
 
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
 
         if request.user.role == 'GES':
             return True

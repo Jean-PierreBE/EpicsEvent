@@ -4,11 +4,14 @@ from rest_framework.permissions import IsAuthenticated
 from events.models import Event
 from events.serializers.seri_event import EventSerializer, EventUpdSerializer
 from events.permissions.perm_event import UpdEvent
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class EventView(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated, UpdEvent]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['email', 'phone', 'begin_date', 'end_date', 'location', 'attendees_count', 'support_user']
 
     def get_queryset(self):
         return Event.objects.all()
