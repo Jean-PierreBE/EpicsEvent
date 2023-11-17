@@ -9,9 +9,7 @@ class ContractSerializer(serializers.ModelSerializer):
         model = Contract
         fields = "__all__"
 
-
 class ContractUpdSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Contract
         fields = ['id', 'sign_date', 'amount_contract', 'saldo_contract', 'status_contract']
