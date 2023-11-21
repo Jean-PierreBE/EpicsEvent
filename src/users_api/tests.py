@@ -12,7 +12,6 @@ class RegisterTestCase(APITestCase):
             '6h74c1Zu3BapCfBES5gdHIKhrNjLLZjzW1TV1g'
     user = 'superuser'
     def test_register(self):
-        self.client.force_authenticate(self.user)
         data = { "pseudo": "test01",
                 "first_name": "prenom01",
                 "last_name": "nom01",
