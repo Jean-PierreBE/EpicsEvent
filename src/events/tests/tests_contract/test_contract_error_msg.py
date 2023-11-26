@@ -15,11 +15,11 @@ def test_contract_amount_neg(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-            "sign_date": "2023-10-31T15:17:00Z",
-            "amount_contract": "-20000",
-            "saldo_contract": "3000",
-            "status_contract": "SI",
-            }
+        "sign_date": "2023-10-31T15:17:00Z",
+        "amount_contract": "-20000",
+        "saldo_contract": "3000",
+        "status_contract": "SI",
+    }
     response = gestionnaire_client.post(f"/customers/{customer.id}/contracts/", data=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
     assert str(response.data["non_field_errors"][0]) == 'this amount is negative'
@@ -36,10 +36,10 @@ def test_contract_saldo_neg(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-            "sign_date": "2023-10-31T15:17:00Z",
-            "amount_contract": "20000",
-            "saldo_contract": "-3000",
-            "status_contract": "SI"
+        "sign_date": "2023-10-31T15:17:00Z",
+        "amount_contract": "20000",
+        "saldo_contract": "-3000",
+        "status_contract": "SI"
     }
     response = gestionnaire_client.post(f"/customers/{customer.id}/contracts/", data=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
@@ -57,10 +57,10 @@ def test_contract_saldo_sup_amount(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-            "sign_date": "2023-10-31T15:17:00Z",
-            "amount_contract": "2000",
-            "saldo_contract": "3000",
-            "status_contract": "SI",
+        "sign_date": "2023-10-31T15:17:00Z",
+        "amount_contract": "2000",
+        "saldo_contract": "3000",
+        "status_contract": "SI",
     }
     response = gestionnaire_client.post(f"/customers/{customer.id}/contracts/", data=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
@@ -78,10 +78,10 @@ def test_contract_bad_status(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-            "sign_date": "2023-10-31T15:17:00Z",
-            "amount_contract": "2000",
-            "saldo_contract": "1000",
-            "status_contract": "ad",
+        "sign_date": "2023-10-31T15:17:00Z",
+        "amount_contract": "2000",
+        "saldo_contract": "1000",
+        "status_contract": "ad",
     }
     response = gestionnaire_client.post(f"/customers/{customer.id}/contracts/", data=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
