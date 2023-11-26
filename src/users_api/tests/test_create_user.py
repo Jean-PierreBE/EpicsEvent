@@ -55,5 +55,6 @@ def test_ges_sup(sup_client):
         "role": "COM",
         "password": "Ulysse1786",
     }
+    print('login_user_ok')
     response = sup_client.post("/signup/", data=data)
     assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
