@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from events.models import Contract, Customer
-from events.serializers.seri_customer import CustomerSerializer
+from events.models import Contract
 from events.constants import MSG_ERR_CONTRACT
 
 
@@ -8,6 +7,7 @@ class ContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
         fields = "__all__"
+
 
 class ContractUpdSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from rest_framework import filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.permissions import IsAuthenticated
@@ -24,6 +23,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             return models.UserProfile.objects.all()
         else:
             return models.UserProfile.objects.filter(id=self.request.user.id)
+
 
 class UserLoginApiView(ObtainAuthToken):
     """Handle creating user authentication tokens"""

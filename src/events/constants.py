@@ -7,3 +7,5 @@ MSG_ERR_EVENT = {
     'ERR-USER': 'this user is not SUP',
     'ERR-ATT': 'attendees is negative'
 }
+
+STATUS_CONTRACT = ['SI', 'NS', 'CA']
