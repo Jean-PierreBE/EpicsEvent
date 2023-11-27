@@ -7,6 +7,7 @@ class UpdEvent(permissions.BasePermission):
     """Allow user to edit with role = 'COM' """
 
     def has_permission(self, request, view):
+        print('has_permission')
         if request.method in permissions.SAFE_METHODS:
             return True
 

@@ -9,12 +9,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class ContractView(viewsets.ModelViewSet):
     serializer_class = ContractSerializer
+    queryset = Contract.objects.all()
     permission_classes = [IsAuthenticated, UpdContract]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['sign_date', 'amount_contract', 'saldo_contract', 'status_contract']
 
     def get_queryset(self):
-        return Contract.objects.all()
+        return self.queryset.filter(customer_id=self.kwargs["customer_id"])
 
     def get_serializer_class(self):
         if self.action == 'retrieve':

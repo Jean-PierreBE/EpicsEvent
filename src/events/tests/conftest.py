@@ -48,7 +48,7 @@ def commercial_client(commercial):
 
 
 @pytest.fixture
-def commercial1_client():
+def commercial01_client():
     user = UserProfile.objects.create_user(
         pseudo="com02",
         first_name="toto",
@@ -63,8 +63,9 @@ def commercial1_client():
 
     return client
 
+
 @pytest.fixture
-def support_client():
+def support():
     user = UserProfile.objects.create_user(
         pseudo="sup01",
         first_name="toto",
@@ -73,8 +74,14 @@ def support_client():
         password="toto",
         role="SUP",
     )
+
+    return user
+
+
+@pytest.fixture
+def support_client(support):
     client = APIClient()
-    refresh = RefreshToken.for_user(user)
+    refresh = RefreshToken.for_user(support)
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}")
 
     return client
