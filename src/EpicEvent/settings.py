@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import sentry_sdk
 
 sentry_sdk.init(
-    dsn="https://c6928ba38e136cafc6ae803a0a1399e9@o4506305225031680.ingest.sentry.io/4506305229291520",
+    dsn=env("SENTRY_KEY"),
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     traces_sample_rate=1.0,
