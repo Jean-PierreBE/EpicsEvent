@@ -12,17 +12,17 @@ def create(token, enterprise_name, client_name , information ,email, phone):
         "phone": phone
         }
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.post(END_POINT["URL"] + END_POINT["CUSTOMER"], json=params, headers=headers)
+    r = requests.post(END_POINT["URL"] + END_POINT["EVENT"], json=params, headers=headers)
     return r.status_code, r.content
 
-def delete(token, customer_id):
+def delete(token, event_id):
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.delete(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id), headers=headers)
+    r = requests.delete(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id), headers=headers)
     return r.status_code, r.content
 
-def update(token, customer_id, enterprise_name, client_name , information ,email, phone):
+def update(token, event_id, enterprise_name, client_name , information ,email, phone):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
-    r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id), headers=headers).json()
+    r = requests.get(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id), headers=headers).json()
     params = {}
     if pseudo == "blank":
         params["enterprise_name"] = r["enterprise_name"]
@@ -45,15 +45,15 @@ def update(token, customer_id, enterprise_name, client_name , information ,email
     else:
         params["phone"] = phone
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.put(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + "/", json=params, headers=headers)
+    r = requests.put(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id) + "/", json=params, headers=headers)
     return r.status_code, r.content
 
-def customers_all(token):
+def events_all(token):
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"], headers=headers)
+    r = requests.get(END_POINT["URL"] + END_POINT["EVENT"], headers=headers)
     return r.status_code, r.content
 
-def customers_one(token, customer_id):
+def events_one(token, event_id):
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id), headers=headers)
+    r = requests.get(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id), headers=headers)
     return r.status_code, r.content

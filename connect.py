@@ -1,5 +1,4 @@
 import requests
-import json
 from http.client import responses
 from constants import END_POINT
 def login(user, password):
@@ -14,6 +13,6 @@ def login(user, password):
 
     if r.status_code == 200:
         json_ret = r.json()
-        return 0, responses[r.status_code], json_ret['access']
+        return 0, responses[r.status_code], json_ret['access'], json_ret['refresh']
     else:
-        return 1, responses[r.status_code], ''
+        return 1, responses[r.status_code], '', ''

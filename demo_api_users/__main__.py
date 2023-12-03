@@ -1,5 +1,5 @@
 import click
-from .utilities import signup, delete, update, signup_all, signup_one
+from .utilities import signup, delete, update, signup_all, signup_one, refresh
 from rest_framework import status
 from connect import login
 
@@ -10,10 +10,11 @@ from connect import login
 
 def user_cli(ctx, user, password):
     ctx.ensure_object(dict)
-    ret, resp, token = login(user, password)
+    ret, resp, token, refresh = login(user, password)
     if ret == 0:
         click.echo(f"Hello {user}! , you are connected")
         ctx.obj["TOKEN"] = token
+        ctx.obj["REFRESH"] = refresh
     else:
         click.echo(f"Hello {user}!" + resp)
 @user_cli.command()
@@ -48,7 +49,7 @@ def user_delete(ctx, user_id):
 @click.option("--last_name", prompt="last_name (leave blank if you don't want to change)", default="blank", help="...")
 @click.option("--email", prompt="email (leave blank if you don't want to change)", default="blank", help="...")
 @click.option("--role", prompt="role (leave blank if you don't want to change)", default="blank", help="...")
-@click.option("--password", prompt="password (leave blank if you don't want to change)", hide_input=True, default="blank", help="...")
+@click.option("--password", prompt="password", hide_input=True, help="...")
 @click.pass_context
 def user_update(ctx, user_id, pseudo, first_name, last_name, email, role, password):
     click.echo(f"update {user_id}")
@@ -60,6 +61,13 @@ def user_update(ctx, user_id, pseudo, first_name, last_name, email, role, passwo
 @click.pass_context
 def user_signup_all(ctx):
     ret, resume = signup_all(ctx.obj['TOKEN'])
+    click.echo(f"return code {ret}")
+    click.echo(f"resume {resume}")
+
+@user_cli.command()
+@click.pass_context
+def user_refresh(ctx):
+    ret, resume = refresh(ctx.obj['REFRESH'])
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 

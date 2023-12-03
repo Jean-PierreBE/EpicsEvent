@@ -2,5 +2,9 @@ END_POINT = {
             "URL": "http://127.0.0.1:8000/",
             "LOGIN": "login/",
             "SIGNUP": "signup/",
-            "USER_ID": "user_id/"
+            "USER_ID": "user_id/",
+            "REFRESH": "login/refresh/",
+            "CUSTOMER": "customers/",
+            "CONTRACT": "contracts/",
+            "EVENT": "events/"
           }
