@@ -1,9 +1,7 @@
 import requests
-import json
-from constants import END_POINT
-from http.client import responses
+from demo_api.constants import END_POINT
 
-def create(token, enterprise_name, client_name , information ,email, phone):
+def create_event(token, enterprise_name, client_name , information ,email, phone):
     params = {
         "enterprise_name": enterprise_name,
         "client_name": client_name,
@@ -12,17 +10,17 @@ def create(token, enterprise_name, client_name , information ,email, phone):
         "phone": phone
         }
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.post(END_POINT["URL"] + END_POINT["CONTRACT"], json=params, headers=headers)
+    r = requests.post(END_POINT["URL"] + END_POINT["EVENT"], json=params, headers=headers)
     return r.status_code, r.content
 
-def delete(token, contract_id):
+def delete_event(token, event_id):
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.delete(END_POINT["URL"] + END_POINT["CONTRACT"] + str(contract_id), headers=headers)
+    r = requests.delete(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id), headers=headers)
     return r.status_code, r.content
 
-def update(token, contract_id, enterprise_name, client_name , information ,email, phone):
+def update_event(token, event_id, enterprise_name, client_name , information ,email, phone):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
-    r = requests.get(END_POINT["URL"] + END_POINT["CONTRACT"] + str(contract_id), headers=headers).json()
+    r = requests.get(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id), headers=headers).json()
     params = {}
     if pseudo == "blank":
         params["enterprise_name"] = r["enterprise_name"]
@@ -45,15 +43,15 @@ def update(token, contract_id, enterprise_name, client_name , information ,email
     else:
         params["phone"] = phone
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.put(END_POINT["URL"] + END_POINT["CONTRACT"] + str(contract_id) + "/", json=params, headers=headers)
+    r = requests.put(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id) + "/", json=params, headers=headers)
     return r.status_code, r.content
 
-def contracts_all(token):
+def signup_all_event(token):
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.get(END_POINT["URL"] + END_POINT["CONTRACT"], headers=headers)
+    r = requests.get(END_POINT["URL"] + END_POINT["EVENT"], headers=headers)
     return r.status_code, r.content
 
-def contracts_one(token, contract_id):
+def signup_one_event(token, event_id):
     headers = {'accept': 'application/json','Authorization': 'Bearer ' + token}
-    r = requests.get(END_POINT["URL"] + END_POINT["CONTRACT"] + str(contract_id), headers=headers)
+    r = requests.get(END_POINT["URL"] + END_POINT["EVENT"] + str(event_id), headers=headers)
     return r.status_code, r.content

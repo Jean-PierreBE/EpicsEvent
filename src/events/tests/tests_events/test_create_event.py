@@ -34,5 +34,5 @@ def test_event_create_ok_com(gestionnaire, support,commercial, commercial_client
         "attendees_count": 10,
         "support_user": support.id
     }
-    response = commercial_client.post(f"/customers/{customer.id}/contracts/{contract.id}/", data=data)
+    response = commercial_client.post(f"/customers/{customer.id}/contracts/{contract.id}/events/", data=data)
     assert response.status_code == status.HTTP_201_CREATED, response.content

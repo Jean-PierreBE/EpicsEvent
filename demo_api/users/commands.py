@@ -1,5 +1,5 @@
 import click
-from .utilities import signup, delete, update, signup_all, signup_one
+from .utilities import create_user, delete_user, update_user, signup_all_user, signup_one_user, refresh_user
 
 
 @click.group()
@@ -22,7 +22,7 @@ def users():
 @click.pass_context
 def create(ctx, pseudo, first_name, last_name, email, role, password):
     click.echo(f"Creating user {pseudo}")
-    ret, resume = signup(
+    ret, resume = create_user(
         ctx.obj["TOKEN"], pseudo, first_name, last_name, email, role, password
     )
     click.echo(f"return code {ret}")
@@ -34,7 +34,7 @@ def create(ctx, pseudo, first_name, last_name, email, role, password):
 @click.pass_context
 def delete(ctx, user_id):
     click.echo(f"Deleting user {user_id}")
-    ret, resume = delete(ctx.obj["TOKEN"], user_id)
+    ret, resume = delete_user(ctx.obj["TOKEN"], user_id)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 
@@ -81,7 +81,7 @@ def delete(ctx, user_id):
 @click.pass_context
 def update(ctx, user_id, pseudo, first_name, last_name, email, role, password):
     click.echo(f"update {user_id}")
-    ret, resume = update(
+    ret, resume = update_user(
         ctx.obj["TOKEN"], user_id, pseudo, first_name, last_name, email, role, password
     )
     click.echo(f"return code {ret}")
@@ -91,7 +91,7 @@ def update(ctx, user_id, pseudo, first_name, last_name, email, role, password):
 @users.command()
 @click.pass_context
 def signup_all(ctx):
-    ret, resume = signup_all(ctx.obj["TOKEN"])
+    ret, resume = signup_all_user(ctx.obj["TOKEN"])
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 
@@ -101,6 +101,14 @@ def signup_all(ctx):
 @click.pass_context
 def signup_one(ctx, user_id):
     click.echo(f"viewing user {user_id}")
-    ret, resume = signup_one(ctx.obj["TOKEN"], user_id)
+    ret, resume = signup_one_user(ctx.obj["TOKEN"], user_id)
+    click.echo(f"return code {ret}")
+    click.echo(f"resume {resume}")
+
+
+@users.command()
+@click.pass_context
+def refresh(ctx):
+    ret, resume = refresh_user(ctx.obj['REFRESH'])
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")

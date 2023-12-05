@@ -1,6 +1,8 @@
 import requests
 from http.client import responses
-from constants import END_POINT
+from .constants import END_POINT
+
+
 def login(user, password):
     params = {
         "pseudo": "",
