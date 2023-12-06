@@ -20,9 +20,6 @@ environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# settings.py
-import sentry_sdk
-
 sentry_sdk.init(
     dsn=env("SENTRY_KEY"),
     # Set traces_sample_rate to 1.0 to capture 100%

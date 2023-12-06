@@ -18,11 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
 
 urlpatterns = [
-    path('sentry-debug/', trigger_error),
     path('admin/', admin.site.urls),
     path('', include('users_api.urls')),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

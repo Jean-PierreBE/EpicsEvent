@@ -17,6 +17,7 @@ def gestionnaire():
 
     return user
 
+
 @pytest.fixture
 def gestionnaire_client(gestionnaire):
     client = APIClient()

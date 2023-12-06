@@ -2,12 +2,11 @@ import pytest
 
 from rest_framework import status
 from events.models import Customer, Contract
-from django.shortcuts import get_object_or_404
 
 
 # Version simple
 @pytest.mark.django_db
-def test_event_create_ok_com(gestionnaire, support,commercial, commercial_client):
+def test_event_create_ok_com(gestionnaire, support, commercial, commercial_client):
     """Create contract ok, role GES"""
     customer = Customer(enterprise_name='BELGACOM',
                         client_name='moi',
