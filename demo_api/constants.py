@@ -8,3 +8,7 @@ END_POINT = {
     "CONTRACT": "/contracts/",
     "EVENT": "/events/"
 }
+NULL_VALUE = "blank"
+TIME_BEGIN = "18:00"
+TIME_END = "22:00"
+TIME_DEFAULT = "00:00"

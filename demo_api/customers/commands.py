@@ -1,5 +1,5 @@
 import click
-from .utilities import create_customer, update_customer, delete_customer, signup_all_customer, signup_one_customer
+from .link_api import create_customer, update_customer, delete_customer, signup_all_customer, signup_one_customer
 
 
 @click.group()

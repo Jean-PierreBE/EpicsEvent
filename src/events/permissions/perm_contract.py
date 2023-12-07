@@ -4,13 +4,12 @@ from events.models import Customer
 
 
 class UpdContract(permissions.BasePermission):
-    """Allow user to edit with role = 'COM' """
 
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        if request.user.role == 'GES':
+        if request.user.role == 'GES' or request.user.is_admin:
             return True
 
         parent_customer = get_object_or_404(Customer, pk=view.kwargs['customer_id'])

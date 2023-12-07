@@ -23,7 +23,8 @@ def cli(ctx, user, password):
         ctx.obj["TOKEN"] = token
         ctx.obj["REFRESH"] = refresh
     else:
-        click.echo(f"Hello {user}!" + resp)
+        click.echo(f"Hello {user} sorry " + resp)
+        exit()
 
 
 cli.add_command(users)

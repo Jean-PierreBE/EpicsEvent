@@ -39,9 +39,6 @@ class Contract(models.Model):
 
 class Event(models.Model):
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE, default=None)
-    client_name = models.CharField(max_length=55, verbose_name="Responsable client")
-    email = models.EmailField(unique=True, max_length=100, blank=False)
-    phone = PhoneNumberField(blank=True)
     begin_date = models.DateTimeField()
     end_date = models.DateTimeField()
     location = models.CharField(max_length=55, verbose_name="localisation")

@@ -12,7 +12,7 @@ class EventView(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     permission_classes = [IsAuthenticated, UpdEvent]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['email', 'phone', 'begin_date', 'end_date', 'location', 'attendees_count', 'support_user']
+    filterset_fields = ['begin_date', 'end_date', 'location', 'attendees_count', 'support_user']
 
     def get_queryset(self):
         return self.queryset.filter(contract_id=self.kwargs["contract_id"])

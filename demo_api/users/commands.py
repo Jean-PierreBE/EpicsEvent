@@ -1,5 +1,5 @@
 import click
-from .utilities import create_user, delete_user, update_user, signup_all_user, signup_one_user, refresh_user
+from .link_api import create_user, delete_user, update_user, signup_all_user, signup_one_user, refresh_user
 
 
 @click.group()

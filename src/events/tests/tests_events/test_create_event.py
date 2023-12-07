@@ -23,9 +23,6 @@ def test_event_create_ok_com(gestionnaire, support, commercial, commercial_clien
                         author_user=gestionnaire)
     contract.save()
     data = {
-        "client_name": "stein",
-        "email": "stein@mail.be",
-        "phone": "+32486303558",
         "begin_date": "2023-10-31T15:17:00Z",
         "end_date": "2023-10-31T15:17:00Z",
         "location": "ici",

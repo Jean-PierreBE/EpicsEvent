@@ -16,8 +16,7 @@ class EventUpdSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ['id', 'client_name', 'email', 'phone', 'begin_date', 'end_date',
-                  'location', 'notes', 'attendees_count', 'support_user']
+        fields = ['id', 'begin_date', 'end_date', 'location', 'notes', 'attendees_count', 'support_user']
 
     def validate(self, data):
         user_exist = get_object_or_404(UserProfile, pseudo=data['support_user'])
