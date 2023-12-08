@@ -1,5 +1,5 @@
 import requests
-from demo_api.constants import END_POINT
+from demo_api.constants import END_POINT, NULL_VALUE
 
 
 def create_user(token, pseudo, first_name, last_name, email, role, password):
@@ -26,23 +26,23 @@ def update_user(token, user_id, pseudo, first_name, last_name, email, role, pass
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["SIGNUP"] + str(user_id), headers=headers).json()
     params = {}
-    if pseudo == "blank":
+    if pseudo == NULL_VALUE:
         params["pseudo"] = r["pseudo"]
     else:
         params["pseudo"] = pseudo
-    if first_name == "blank":
+    if first_name == NULL_VALUE:
         params["first_name"] = r["first_name"]
     else:
         params["first_name"] = first_name
-    if last_name == "blank":
+    if last_name == NULL_VALUE:
         params["last_name"] = r["last_name"]
     else:
         params["last_name"] = last_name
-    if email == "blank":
+    if email == NULL_VALUE:
         params["email"] = r["email"]
     else:
         params["email"] = email
-    if role == "blank":
+    if role == NULL_VALUE:
         params["role"] = r["role"]
     else:
         params["role"] = role

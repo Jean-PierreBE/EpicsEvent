@@ -15,7 +15,7 @@ def test_contract_amount_neg(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-        "sign_date": "2023-10-31T15:17:00Z",
+        "sign_date": "2023-10-31",
         "amount_contract": "-20000",
         "saldo_contract": "3000",
         "status_contract": "SI",
@@ -36,7 +36,7 @@ def test_contract_saldo_neg(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-        "sign_date": "2023-10-31T15:17:00Z",
+        "sign_date": "2023-10-31",
         "amount_contract": "20000",
         "saldo_contract": "-3000",
         "status_contract": "SI"
@@ -57,7 +57,7 @@ def test_contract_saldo_sup_amount(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-        "sign_date": "2023-10-31T15:17:00Z",
+        "sign_date": "2023-10-31",
         "amount_contract": "2000",
         "saldo_contract": "3000",
         "status_contract": "SI",
@@ -78,7 +78,7 @@ def test_contract_bad_status(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-        "sign_date": "2023-10-31T15:17:00Z",
+        "sign_date": "2023-10-31",
         "amount_contract": "2000",
         "saldo_contract": "1000",
         "status_contract": "ad",

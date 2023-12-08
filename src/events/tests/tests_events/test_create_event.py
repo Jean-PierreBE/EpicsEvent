@@ -15,7 +15,7 @@ def test_event_create_ok_com(gestionnaire, support, commercial, commercial_clien
                         phone='+32486303558',
                         author_user=commercial)
     customer.save()
-    contract = Contract(sign_date="2023-10-31T15:17:00Z",
+    contract = Contract(sign_date="2023-10-31",
                         amount_contract="20000",
                         saldo_contract="3000",
                         status_contract="SI",
@@ -23,8 +23,10 @@ def test_event_create_ok_com(gestionnaire, support, commercial, commercial_clien
                         author_user=gestionnaire)
     contract.save()
     data = {
-        "begin_date": "2023-10-31T15:17:00Z",
-        "end_date": "2023-10-31T15:17:00Z",
+        "begin_date": "2023-10-31",
+        "begin_hour": "12:00:00",
+        "end_date": "2023-10-31",
+        "end_hour": "18:00:00",
         "location": "ici",
         "notes": "ras",
         "attendees_count": 10,

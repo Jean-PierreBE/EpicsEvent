@@ -28,7 +28,7 @@ class Contract(models.Model):
     )
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, default=None)
-    sign_date = models.DateTimeField()
+    sign_date = models.DateField()
     amount_contract = models.FloatField(default=0)
     saldo_contract = models.FloatField(default=0)
     status_contract = models.CharField(max_length=55, choices=STATUS, verbose_name="Statut")
@@ -39,8 +39,10 @@ class Contract(models.Model):
 
 class Event(models.Model):
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE, default=None)
-    begin_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    begin_date = models.DateField()
+    end_date = models.DateField()
+    begin_hour = models.TimeField()
+    end_hour = models.TimeField()
     location = models.CharField(max_length=55, verbose_name="localisation")
     notes = models.TextField(max_length=2048, blank=True, verbose_name="Evènement")
     attendees_count = models.IntegerField(default=0)

@@ -1,6 +1,6 @@
 import click
 from .link_api import create_customer, update_customer, delete_customer, signup_all_customer, signup_one_customer
-
+from demo_api.constants import NULL_VALUE
 
 @click.group()
 def customers():
@@ -34,13 +34,13 @@ def delete(ctx, customer_id):
 @customers.command()
 @click.option("--customer_id", prompt="customer id to update", required=True, help="...")
 @click.option("--enterprise_name", prompt="enterprise_name (leave blank if you don't want to change)",
-              default="blank", help="...")
+              default=NULL_VALUE, help="...")
 @click.option("--client_name", prompt="client_name (leave blank if you don't want to change)",
-              default="blank", help="...")
+              default=NULL_VALUE, help="...")
 @click.option("--information", prompt="information (leave blank if you don't want to change)",
-              default="blank", help="...")
-@click.option("--email", prompt="email (leave blank if you don't want to change)", default="blank", help="...")
-@click.option("--phone", prompt="phone (leave blank if you don't want to change)", default="blank", help="...")
+              default=NULL_VALUE, help="...")
+@click.option("--email", prompt="email (leave blank if you don't want to change)", default=NULL_VALUE, help="...")
+@click.option("--phone", prompt="phone (leave blank if you don't want to change)", default=NULL_VALUE, help="...")
 @click.pass_context
 def update(ctx, customer_id, enterprise_name, client_name, information, email, phone):
     click.echo(f"update {customer_id}")

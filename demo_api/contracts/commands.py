@@ -1,6 +1,7 @@
 import click
 from .link_api import create_contract, delete_contract, update_contract, signup_all_contract, signup_one_contract
 from demo_api.utilities import format_date_json
+from demo_api.constants import NULL_VALUE
 
 @click.group()
 def contracts():
@@ -21,7 +22,7 @@ def contracts():
 @click.pass_context
 def create(ctx, customer_id, sign_date, amount_contract, saldo_contract, status_contract):
     click.echo("Creating contract")
-    ret, resume = create_contract(ctx.obj['TOKEN'], customer_id, format_date_json(sign_date,TIME_DEFAULT), amount_contract,
+    ret, resume = create_contract(ctx.obj['TOKEN'], customer_id, format_date_json(sign_date), amount_contract,
                                   saldo_contract, status_contract)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
@@ -41,17 +42,17 @@ def delete(ctx, customer_id, contract_id):
 @contracts.command()
 @click.option("--customer_id", prompt="-customer id linked to the contract", help="...")
 @click.option("--contract_id", prompt="contract id to update", required=True, help="...")
-@click.option("--sign_date", prompt="sign_date (DD/MM/YYYY)(leave blank if you don't want to change)", default="blank", help="...")
+@click.option("--sign_date", prompt="sign_date (DD/MM/YYYY)(leave blank if you don't want to change)", default=NULL_VALUE, help="...")
 @click.option("--amount_contract", prompt="amount_contract (leave blank if you don't want to change)",
-              default="blank", help="...")
+              default=NULL_VALUE, help="...")
 @click.option("--saldo_contract", prompt="saldo_contract (leave blank if you don't want to change)",
-              default="blank", help="...")
+              default=NULL_VALUE, help="...")
 @click.option("--status_contract", prompt="status_contract (leave blank if you don't want to change)",
-              default="blank", help="...")
+              default=NULL_VALUE, help="...")
 @click.pass_context
 def update(ctx, customer_id, contract_id, sign_date, amount_contract, saldo_contract, status_contract):
     click.echo(f"update {contract_id}")
-    ret, resume = update_contract(ctx.obj['TOKEN'], customer_id, contract_id, format_date_json(sign_date,TIME_DEFAULT),
+    ret, resume = update_contract(ctx.obj['TOKEN'], customer_id, contract_id, format_date_json(sign_date),
                                   amount_contract, saldo_contract, status_contract)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")

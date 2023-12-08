@@ -1,11 +1,14 @@
 import requests
 from demo_api.constants import END_POINT, NULL_VALUE
-from demo_api.utilities import reformat_date
 
-def create_event(token, customer_id, contract_id, begin_date, end_date, location, notes, attendees_count, support_user):
+
+def create_event(token, customer_id, contract_id, begin_date, begin_hour, end_date, end_hour, location,
+                 notes, attendees_count, support_user):
     params = {
         "begin_date": begin_date,
+        "begin_hour": begin_hour,
         "end_date": end_date,
+        "end_hour": end_hour,
         "location": location,
         "notes": notes,
         "attendees_count": attendees_count,
@@ -30,8 +33,10 @@ def update_event(token, customer_id, contract_id, event_id, begin_date, begin_ho
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"] +
                      str(contract_id) + END_POINT["EVENT"] + str(event_id), headers=headers).json()
     params = {}
-    params["begin_date"] = reformat_date(r["begin_date"], begin_date, begin_hour)
-    params["end_date"] = reformat_date(r["end_date"], end_date, end_hour)
+    params["begin_date"] = r["begin_date"] if begin_date == NULL_VALUE else begin_date
+    params["begin_hour"] = r["begin_hour"] if begin_hour == NULL_VALUE else begin_hour
+    params["end_date"] = r["end_date"] if end_date == NULL_VALUE else end_date
+    params["end_hour"] = r["location"] if end_hour == NULL_VALUE else end_hour
     params["location"] = r["location"] if location == NULL_VALUE else location
     params["notes"] = r["notes"] if notes == NULL_VALUE else notes
     params["attendees_count"] = r["attendees_count"] if attendees_count == NULL_VALUE else attendees_count

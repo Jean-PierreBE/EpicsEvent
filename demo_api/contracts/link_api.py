@@ -1,5 +1,5 @@
 import requests
-from demo_api.constants import END_POINT
+from demo_api.constants import END_POINT, NULL_VALUE
 
 
 def create_contract(token, customer_id, sign_date, amount_contract, saldo_contract, status_contract):
@@ -27,19 +27,19 @@ def update_contract(token, customer_id, contract_id, sign_date, amount_contract,
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"] +
                      str(contract_id), headers=headers).json()
     params = {}
-    if sign_date == "blank":
+    if sign_date == NULL_VALUE:
         params["sign_date"] = r["sign_date"]
     else:
         params["sign_date"] = sign_date
-    if amount_contract == "blank":
+    if amount_contract == NULL_VALUE:
         params["amount_contract"] = r["amount_contract"]
     else:
         params["amount_contract"] = amount_contract
-    if saldo_contract == "blank":
+    if saldo_contract == NULL_VALUE:
         params["saldo_contract"] = r["saldo_contract"]
     else:
         params["saldo_contract"] = saldo_contract
-    if status_contract == "blank":
+    if status_contract == NULL_VALUE:
         params["status_contract"] = r["status_contract"]
     else:
         params["status_contract"] = status_contract

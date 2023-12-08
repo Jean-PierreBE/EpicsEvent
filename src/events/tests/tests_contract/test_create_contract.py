@@ -16,7 +16,7 @@ def test_contract_create_ok_ges(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     data = {
-        "sign_date": "2023-10-31T15:17:00Z",
+        "sign_date": "2023-10-31",
         "amount_contract": "20000",
         "saldo_contract": "3000",
         "status_contract": "SI",
@@ -36,7 +36,7 @@ def test_contract_create_nok_com(commercial, commercial_client):
                         author_user=commercial)
     customer.save()
     data = {
-        "sign_date": "2023-10-31T15:17:00Z",
+        "sign_date": "2023-10-31",
         "amount_contract": "20000",
         "saldo_contract": "3000",
         "status_contract": "SI",
@@ -56,7 +56,7 @@ def test_contract_create_nok_sup(commercial, support_client):
                         author_user=commercial)
     customer.save()
     data = {
-        "sign_date": "2023-10-31T15:17:00Z",
+        "sign_date": "2023-10-31",
         "amount_contract": "20000",
         "saldo_contract": "3000",
         "status_contract": "SI",

@@ -1,6 +1,6 @@
 import click
 from .link_api import create_user, delete_user, update_user, signup_all_user, signup_one_user, refresh_user
-
+from demo_api.constants import NULL_VALUE
 
 @click.group()
 def users():
@@ -44,38 +44,38 @@ def delete(ctx, user_id):
 @click.option(
     "--pseudo",
     prompt="pseudo (leave blank if you don't want to change)",
-    default="blank",
+    default=NULL_VALUE,
     help="...",
 )
 @click.option(
     "--first_name",
     prompt="first name (leave blank if you don't want to change)",
-    default="blank",
+    default=NULL_VALUE,
     help="...",
 )
 @click.option(
     "--last_name",
     prompt="last_name (leave blank if you don't want to change)",
-    default="blank",
+    default=NULL_VALUE,
     help="...",
 )
 @click.option(
     "--email",
     prompt="email (leave blank if you don't want to change)",
-    default="blank",
+    default=NULL_VALUE,
     help="...",
 )
 @click.option(
     "--role",
     prompt="role (leave blank if you don't want to change)",
-    default="blank",
+    default=NULL_VALUE,
     help="...",
 )
 @click.option(
     "--password",
     prompt="password (leave blank if you don't want to change)",
     hide_input=True,
-    default="blank",
+    default=NULL_VALUE,
     help="...",
 )
 @click.pass_context
