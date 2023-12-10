@@ -18,7 +18,8 @@ class EventView(viewsets.ModelViewSet):
         return self.queryset.filter(contract_id=self.kwargs["contract_id"])
 
     def get_serializer_class(self):
-        if self.action == 'retrieve':
+        print(self.action)
+        if self.action == 'list':
             return self.serializer_class
         else:
             return EventUpdSerializer

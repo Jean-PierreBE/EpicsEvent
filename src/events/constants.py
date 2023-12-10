@@ -9,3 +9,5 @@ MSG_ERR_EVENT = {
 }
 
 STATUS_CONTRACT = ['SI', 'NS', 'CA']
+
+PASSWORD_TEST = "passwordtest"
