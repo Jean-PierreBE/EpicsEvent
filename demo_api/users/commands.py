@@ -2,6 +2,7 @@ import click
 from .link_api import create_user, delete_user, update_user, signup_all_user, signup_one_user, refresh_user
 from demo_api.constants import NULL_VALUE
 
+
 @click.group()
 def users():
     pass

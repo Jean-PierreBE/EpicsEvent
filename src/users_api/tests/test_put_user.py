@@ -43,6 +43,3 @@ def test_put_ges_user(ges_client):
     }
     response = ges_client.put(f"/signup/{user_test.id}/", data=data)
     assert response.status_code == status.HTTP_200_OK, response.content
-
-
-

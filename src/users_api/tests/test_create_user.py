@@ -2,7 +2,7 @@ import pytest
 from rest_framework import status
 from users_api.constants import PASSWORD_TEST
 
-# Version simple
+
 @pytest.mark.django_db
 def test_super_user(superuser_client):
     data = {

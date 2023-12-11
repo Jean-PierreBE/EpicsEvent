@@ -15,6 +15,7 @@ def test_signup_one_customer(commercial, commercial_client):
     response = commercial_client.get(f"/customers/{customer.id}/")
     assert response.status_code == status.HTTP_200_OK, response.content
 
+
 @pytest.mark.django_db
 def test_signup_all_customer(commercial, commercial_client):
     customer = Customer(enterprise_name='BELGACOM',

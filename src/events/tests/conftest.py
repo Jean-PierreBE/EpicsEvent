@@ -29,10 +29,10 @@ def gestionnaire_client(gestionnaire):
 @pytest.fixture
 def commercial():
     user = UserProfile.objects.create_user(
-        pseudo="com01",
+        pseudo="com",
         first_name="toto",
         last_name="coucou",
-        email="com01@js.com",
+        email="com@js.com",
         password="toto",
         role="COM",
     )
@@ -51,10 +51,10 @@ def commercial_client(commercial):
 @pytest.fixture
 def commercial01_client():
     user = UserProfile.objects.create_user(
-        pseudo="com02",
+        pseudo="com01",
         first_name="toto",
         last_name="coucou",
-        email="com021@js.com",
+        email="com01@js.com",
         password="toto",
         role="COM",
     )
@@ -68,6 +68,29 @@ def commercial01_client():
 @pytest.fixture
 def support():
     user = UserProfile.objects.create_user(
+        pseudo="sup",
+        first_name="toto",
+        last_name="coucou",
+        email="sup@js.com",
+        password="toto",
+        role="SUP",
+    )
+
+    return user
+
+
+@pytest.fixture
+def support_client(support):
+    client = APIClient()
+    refresh = RefreshToken.for_user(support)
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}")
+
+    return client
+
+
+@pytest.fixture
+def support01():
+    user = UserProfile.objects.create_user(
         pseudo="sup01",
         first_name="toto",
         last_name="coucou",
@@ -80,9 +103,9 @@ def support():
 
 
 @pytest.fixture
-def support_client(support):
+def support01_client(support01):
     client = APIClient()
-    refresh = RefreshToken.for_user(support)
+    refresh = RefreshToken.for_user(support01)
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}")
 
     return client

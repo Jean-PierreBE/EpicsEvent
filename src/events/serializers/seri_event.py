@@ -7,11 +7,12 @@ from django.shortcuts import get_object_or_404
 
 class EventSerializer(serializers.ModelSerializer):
     client_name = serializers.CharField(read_only=True, source="event.contract.customer.name")
+
     class Meta:
         model = Event
-        #fields = "__all__"
         fields = ['client_name', 'id', 'begin_date', 'begin_hour', 'end_date', 'end_hour', 'location', 'notes',
                   'attendees_count', 'support_user', 'author_user', 'time_created', 'time_modified']
+
 
 class EventUpdSerializer(serializers.ModelSerializer):
 

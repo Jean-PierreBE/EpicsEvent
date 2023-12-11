@@ -99,6 +99,7 @@ def user_lambda():
 
     return user
 
+
 @pytest.fixture
 def user_lambda_client(user_lambda):
     client = APIClient()

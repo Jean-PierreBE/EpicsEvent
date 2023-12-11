@@ -5,7 +5,7 @@ from events.models import Customer, Contract
 
 
 @pytest.mark.django_db
-def test_event_create_ok_com(gestionnaire, support, commercial, commercial_client):
+def test_event_attendee_negative(gestionnaire, support, commercial, commercial_client):
     """Create contract ok, role GES"""
     customer = Customer(enterprise_name='BELGACOM',
                         client_name='moi',
@@ -28,16 +28,17 @@ def test_event_create_ok_com(gestionnaire, support, commercial, commercial_clien
         "end_hour": "18:00:00",
         "location": "ici",
         "notes": "ras",
-        "attendees_count": 10,
+        "attendees_count": -10,
         "contract_id": contract.id,
         "support_user": support.id
     }
     response = commercial_client.post(f"/customers/{customer.id}/contracts/{contract.id}/events/", data=data)
-    assert response.status_code == status.HTTP_201_CREATED, response.content
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
+    assert str(response.data["non_field_errors"][0]) == 'attendees is negative'
 
 
 @pytest.mark.django_db
-def test_event_create_nok_com(gestionnaire, support, commercial, commercial01_client):
+def test_event_not_sup(gestionnaire, commercial, commercial_client):
     """Create contract ok, role GES"""
     customer = Customer(enterprise_name='BELGACOM',
                         client_name='moi',
@@ -60,9 +61,10 @@ def test_event_create_nok_com(gestionnaire, support, commercial, commercial01_cl
         "end_hour": "18:00:00",
         "location": "ici",
         "notes": "ras",
-        "attendees_count": 10,
+        "attendees_count": -10,
         "contract_id": contract.id,
-        "support_user": support.id
+        "support_user": gestionnaire.id
     }
-    response = commercial01_client.post(f"/customers/{customer.id}/contracts/{contract.id}/events/", data=data)
-    assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    response = commercial_client.post(f"/customers/{customer.id}/contracts/{contract.id}/events/", data=data)
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
+    assert str(response.data["non_field_errors"][0]) == 'this user is not SUP'

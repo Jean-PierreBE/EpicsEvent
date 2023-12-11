@@ -3,6 +3,7 @@ from .link_api import create_contract, delete_contract, update_contract, signup_
 from demo_api.utilities import format_date_json
 from demo_api.constants import NULL_VALUE
 
+
 @click.group()
 def contracts():
     pass
@@ -42,7 +43,8 @@ def delete(ctx, customer_id, contract_id):
 @contracts.command()
 @click.option("--customer_id", prompt="-customer id linked to the contract", help="...")
 @click.option("--contract_id", prompt="contract id to update", required=True, help="...")
-@click.option("--sign_date", prompt="sign_date (DD/MM/YYYY)(leave blank if you don't want to change)", default=NULL_VALUE, help="...")
+@click.option("--sign_date", prompt="sign_date (DD/MM/YYYY)(leave blank if you don't want to change)",
+              default=NULL_VALUE, help="...")
 @click.option("--amount_contract", prompt="amount_contract (leave blank if you don't want to change)",
               default=NULL_VALUE, help="...")
 @click.option("--saldo_contract", prompt="saldo_contract (leave blank if you don't want to change)",
