@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 
 
 class EventSerializer(serializers.ModelSerializer):
-    client_name = serializers.CharField(read_only=True, source="event.contract.customer.name")
+    client_name = serializers.CharField(read_only=True, source="event.contract.customer.client_name")
 
     class Meta:
         model = Event
@@ -22,11 +22,16 @@ class EventUpdSerializer(serializers.ModelSerializer):
                   'attendees_count', 'support_user']
 
     def validate(self, data):
+        if data['begin_date'] > data['end_date']:
+            raise serializers.ValidationError(MSG_ERR_EVENT['ERR_DATE'])
+        elif data['begin_date'] == data['end_date']:
+            if data['begin_hour'] > data['end_hour']:
+                raise serializers.ValidationError(MSG_ERR_EVENT['ERR_HOUR'])
         user_exist = get_object_or_404(UserProfile, pseudo=data['support_user'])
         if user_exist.role == 'SUP':
             if data['attendees_count'] < 0:
-                raise serializers.ValidationError(MSG_ERR_EVENT['ERR-ATT'])
+                raise serializers.ValidationError(MSG_ERR_EVENT['ERR_ATT'])
             else:
                 return data
         else:
-            raise serializers.ValidationError(MSG_ERR_EVENT['ERR-USER'])
+            raise serializers.ValidationError(MSG_ERR_EVENT['ERR_USER'])

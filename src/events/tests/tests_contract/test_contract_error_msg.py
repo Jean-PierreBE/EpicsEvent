@@ -2,7 +2,7 @@ import pytest
 
 from rest_framework import status
 from events.models import Customer
-
+from events.constants import MSG_ERR_CONTRACT
 
 @pytest.mark.django_db
 def test_contract_amount_neg(commercial, gestionnaire_client):
@@ -22,7 +22,7 @@ def test_contract_amount_neg(commercial, gestionnaire_client):
     }
     response = gestionnaire_client.post(f"/customers/{customer.id}/contracts/", data=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
-    assert str(response.data["non_field_errors"][0]) == 'this amount is negative'
+    assert str(response.data["non_field_errors"][0]) == MSG_ERR_CONTRACT['ERR_NEG']
 
 
 @pytest.mark.django_db
@@ -43,7 +43,7 @@ def test_contract_saldo_neg(commercial, gestionnaire_client):
     }
     response = gestionnaire_client.post(f"/customers/{customer.id}/contracts/", data=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
-    assert str(response.data["non_field_errors"][0]) == 'this amount is negative'
+    assert str(response.data["non_field_errors"][0]) == MSG_ERR_CONTRACT['ERR_NEG']
 
 
 @pytest.mark.django_db
@@ -64,7 +64,7 @@ def test_contract_saldo_sup_amount(commercial, gestionnaire_client):
     }
     response = gestionnaire_client.post(f"/customers/{customer.id}/contracts/", data=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
-    assert str(response.data["non_field_errors"][0]) == 'Saldo is more than the amount'
+    assert str(response.data["non_field_errors"][0]) == MSG_ERR_CONTRACT['ERR_SALDO']
 
 
 @pytest.mark.django_db

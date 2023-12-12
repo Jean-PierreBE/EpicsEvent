@@ -1,49 +1,73 @@
 # Projet 12 OpenClassRoom : Développez une architecture back-end sécurisée avec Python et SQL
-Le but de ce projet est de créer une API REST permettant de gérer des projets , des tâches et d'ajouter des commentaires.
-Cet API permet également de créer des users , de donner les droits d'accès à ces users.
+Le but de ce projet est de mettre en place une solution de CRM pour une entreprise organisatrice d'évènements
+pour les entreprises. 
+Le projet comprend deux parties 
+- la partie CRM sous forme d'une API REST écrite avec Django Rest Framework
+- la partie ligne de commandes avec Click qui permet d'interagir avec l'API en lignes de commandes
 
 ## composition
-Tous les fichiers .py necessaires au fonctionnement du logiciel se trouvent dans le répertoire src.
+Tous les fichiers .py necessaires au fonctionnement du logiciel se trouvent dans le répertoire EpicsEvent.
+il y a deux sous-répertoires
+- src qui contient le code de l'API.
+- demo_api qui contient le code click pour faire une démonstration de l'API en ligne de commandes
+
 Les autres fichiers sont :
 - README.md qui contient des informations sur le logiciel
 - requirements.txt contient les packages necessaires au bon fonctionnement du logiciel
 - tox.ini permet de paramétrer flake8 pour voir si le programme répond aux normes pep8
 
 ## Installation de l'application
-- Cloner le dépôt de code à l'aide de la commande `https://github.com/Jean-PierreBE/SoftDesk.git`
-- Rendez-vous depuis un terminal à la racine du répertoire SoftDesk avec la commande `cd SoftDesk`
+- Cloner le dépôt de code à l'aide de la commande `https://github.com/Jean-PierreBE/EpicsEvent.git`
+- Rendez-vous depuis un terminal à la racine du répertoire SoftDesk avec la commande `cd EpicsEvent`
 - Créer un environnement virtuel pour le projet avec `$ python -m venv env` sous windows ou `$ python3 -m venv env` sous macos ou linux.
 - Activez l'environnement virtuel avec `$ env\Scripts\activate` sous windows ou `$ source env/bin/activate` sous macos ou linux.
 - installer les packages python du fichier requirements.txt en lançant la commande suivante 
   - `pip install -r requirements.txt`
 
-les packages installés sont les suivants :
-- django : framework permettant de développer les sites webs
-- djangorestframework : framework permettant de décvelopper des apis
-
 ## Lancement du programme
-- Pour créer la db on tape sur la ligne de commande dans le répertoire src:
+Il faut au préalable avoir installé et configuré une base de données PostgreSQL et ensuite mettre à jour le fichier .venv
+dans src/EpicEvent/
+- Pour créer les tables on tape sur la ligne de commande dans le répertoire src:
   - `python manage.py makemigrations`
   - `python manage.py migrate`
 - On lance le programme en tapant sur la ligne de commande dans le répertoire src:
   - `python manage.py runserver`
 
 ## Déroulement du programme
-Une fois la commande précédente exécutée, mettre l'adresse suivante
-- `http://127.0.0.1:8000/`
-dans le browser de votre choix.
-- pour commencer il faut créer un user avec le end point signup. Il faut renseigner au minimum un user , adresse mail et password.
-- une fois le user créé , on peut se connecter avec le end point login avec le user et le password. L'API renverra un code token.
-  Avec ce code token on peut utiliser l'API.  
-- L'utilsateur pourra commencer à créer un projet , il sera le creator. Une fois le projet créé , d'autres utilisateurs pourront s'ajouter au projet avec des postes divers mais pas creator. 
-- Si l'utilisateur est lié à un projet , il peut créer une issue et l'affecter à un utilisateur lié au projet.
-- Chaque utilisateur lié au projet peut ajouter des commentaires aux issues créées  
+Dans le répertoire racine lancer le ou les commandes suivantes
+- python -m demo_api users
+- python -m demo_api customers
+- python -m demo_api contracts
+- python -m demo_api events
 
+ces commandes donnent l'aide pour chacune des parties de l'API
+Pour chacune de ces parties il est possible de créer , mettre à jour , supprimer , visualiser un ou plusieurs
+objets.
+Pour la partie user , on a le login et le refresh du token en plus.
+ex : on tape `python -m demo_api users create` , le programme invite l'utilisateur à saisir
+- son pseudo
+- un mot de passe
+
+si l'utilisateur est référencé , un token est généré et l'utilisateur peut saisir les données une par une.
+Une fois toutes les données encodées , on fait appel à l'API qui renverra un code retour et un fichier au format 
+json le cas échéant. 
+Les erreurs d'encodage et fonctionnelles sont affichées également
+
+## Tests
+- pour voir si le programme passe les tests unitaires et d'intégration exécuter la commande suivante dans le répertoire src:
+  - `pytest --html=test_report.html --self-contained-html`
+  - visualiser le fichier test_report.html
+- pour voir la couverture des tests lancer la commande suivante :
+  - `pytest --cov=. --cov-report html`
+  - visualiser le fichier index.html dans le répertoire htmlcov
 
 ## Contrôle qualité
-Pour vérifier la qualité du code , on peut lancer la commande suivante :
+Pour vérifier la qualité du code , on peut lancer le commandes suivantes :
 - `flake8 --format=html --htmldir=flake-report src`
-Le rapport sortira en format html dans le répertoire flake-report
+- `flake8 --format=html --htmldir=flake-report-click demo_api`
+Les rapports sortiront en format html dans les répertoires 
+- flake-report
+- flake-report-click
 
 pour cela il faut installer :
 - flake8 : contrôle du code pour vérifier la compatibilité avec les normes pep8
@@ -61,3 +85,4 @@ le fichier tox.ini contient la configuration pour flake8.
   - W504 : saut de ligne après un opérateur
 
 Ces paramètres peuvent être modifiés
+

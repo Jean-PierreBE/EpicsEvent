@@ -17,8 +17,8 @@ class ContractUpdSerializer(serializers.ModelSerializer):
     def validate(self, data):
 
         if data['amount_contract'] < 0 or data['saldo_contract'] < 0:
-            raise serializers.ValidationError(MSG_ERR_CONTRACT['ERR-NEG'])
+            raise serializers.ValidationError(MSG_ERR_CONTRACT['ERR_NEG'])
         elif data['saldo_contract'] > data['amount_contract']:
-            raise serializers.ValidationError(MSG_ERR_CONTRACT['ERR-SALDO'])
+            raise serializers.ValidationError(MSG_ERR_CONTRACT['ERR_SALDO'])
         else:
             return data
