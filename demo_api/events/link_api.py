@@ -36,7 +36,7 @@ def update_event(token, customer_id, contract_id, event_id, begin_date, begin_ho
     params["begin_date"] = r["begin_date"] if begin_date == NULL_VALUE else begin_date
     params["begin_hour"] = r["begin_hour"] if begin_hour == NULL_VALUE else begin_hour
     params["end_date"] = r["end_date"] if end_date == NULL_VALUE else end_date
-    params["end_hour"] = r["location"] if end_hour == NULL_VALUE else end_hour
+    params["end_hour"] = r["end_hour"] if end_hour == NULL_VALUE else end_hour
     params["location"] = r["location"] if location == NULL_VALUE else location
     params["notes"] = r["notes"] if notes == NULL_VALUE else notes
     params["attendees_count"] = r["attendees_count"] if attendees_count == NULL_VALUE else attendees_count

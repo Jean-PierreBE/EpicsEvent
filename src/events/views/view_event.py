@@ -19,7 +19,7 @@ class EventView(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         print(self.action)
-        if self.action == 'list':
+        if self.action in ('list', 'retrieve'):
             return self.serializer_class
         else:
             return EventUpdSerializer

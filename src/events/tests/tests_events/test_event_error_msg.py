@@ -4,6 +4,7 @@ from rest_framework import status
 from events.models import Customer, Contract
 from events.constants import MSG_ERR_EVENT
 
+
 @pytest.mark.django_db
 def test_event_attendee_negative(gestionnaire, support, commercial, commercial_client):
     """Create contract ok, role GES"""

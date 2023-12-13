@@ -4,6 +4,7 @@ from rest_framework import status
 from events.models import Customer
 from events.constants import MSG_ERR_CONTRACT
 
+
 @pytest.mark.django_db
 def test_contract_amount_neg(commercial, gestionnaire_client):
     """Create contract nok, role COM"""
