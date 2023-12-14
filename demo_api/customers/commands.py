@@ -1,5 +1,5 @@
 import click
-from .link_api import create_customer, update_customer, delete_customer, signup_all_customer, signup_one_customer
+from .link_api import create_customer, update_customer, delete_customer, list_all_customer, list_one_customer
 from demo_api.constants import NULL_VALUE
 
 
@@ -53,8 +53,8 @@ def update(ctx, customer_id, enterprise_name, client_name, information, email, p
 
 @customers.command()
 @click.pass_context
-def signup_all(ctx):
-    ret, resume = signup_all_customer(ctx.obj['TOKEN'])
+def list_all(ctx):
+    ret, resume = list_all_customer(ctx.obj['TOKEN'])
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 
@@ -62,8 +62,8 @@ def signup_all(ctx):
 @customers.command()
 @click.option("--customer_id", prompt="customer id to view", help="...")
 @click.pass_context
-def signup_one(ctx, customer_id):
+def list_one(ctx, customer_id):
     click.echo(f"viewing customer {customer_id}")
-    ret, resume = signup_one_customer(ctx.obj['TOKEN'], customer_id)
+    ret, resume = list_one_customer(ctx.obj['TOKEN'], customer_id)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")

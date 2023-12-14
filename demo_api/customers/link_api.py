@@ -50,13 +50,13 @@ def update_customer(token, customer_id, enterprise_name, client_name, informatio
     return r.status_code, r.content
 
 
-def signup_all_customer(token):
+def list_all_customer(token):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"], headers=headers)
     return r.status_code, r.content
 
 
-def signup_one_customer(token, customer_id):
+def list_one_customer(token, customer_id):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id), headers=headers)
     return r.status_code, r.content

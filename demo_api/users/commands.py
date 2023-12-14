@@ -1,5 +1,5 @@
 import click
-from .link_api import create_user, delete_user, update_user, signup_all_user, signup_one_user, refresh_user
+from .link_api import create_user, delete_user, update_user, list_all_user, list_one_user, refresh_user
 from demo_api.constants import NULL_VALUE
 
 
@@ -91,8 +91,8 @@ def update(ctx, user_id, pseudo, first_name, last_name, email, role, password):
 
 @users.command()
 @click.pass_context
-def signup_all(ctx):
-    ret, resume = signup_all_user(ctx.obj["TOKEN"])
+def list_all(ctx):
+    ret, resume = list_all_user(ctx.obj["TOKEN"])
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 
@@ -100,9 +100,9 @@ def signup_all(ctx):
 @users.command()
 @click.option("--user_id", prompt="User id to view", help="...")
 @click.pass_context
-def signup_one(ctx, user_id):
+def list_one(ctx, user_id):
     click.echo(f"viewing user {user_id}")
-    ret, resume = signup_one_user(ctx.obj["TOKEN"], user_id)
+    ret, resume = list_one_user(ctx.obj["TOKEN"], user_id)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 

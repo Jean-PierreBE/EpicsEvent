@@ -1,5 +1,5 @@
 import click
-from .link_api import create_event, update_event, delete_event, signup_all_event, signup_one_event
+from .link_api import create_event, update_event, delete_event, list_all_event, list_one_event
 from demo_api.utilities import format_date_json
 from demo_api.constants import TIME_BEGIN, TIME_END, NULL_VALUE
 
@@ -74,9 +74,18 @@ def update(ctx, customer_id, contract_id, event_id, begin_date, begin_hour,
 @events.command()
 @click.option("--customer_id", prompt="-customer id to link contracts", help="...")
 @click.option("--contract_id", prompt="-contract id to link events", help="...")
+@click.option("--filter_attendees", prompt="-number of members (leave blank if you don't want to fill)",
+              default=NULL_VALUE, help="...")
+@click.option("--filter_id_support", prompt="-id of the support user (leave blank if you don't want to fill)",
+              default=NULL_VALUE, help="...")
 @click.pass_context
-def signup_all(ctx, customer_id, contract_id):
-    ret, resume = signup_all_event(ctx.obj['TOKEN'], customer_id, contract_id)
+def list_all(ctx, customer_id, contract_id, filter_attendees, filter_id_support):
+    params = {}
+    if filter_attendees != NULL_VALUE:
+        params["attendees_count"] = filter_attendees
+    if filter_id_support != NULL_VALUE:
+        params["support_user_id"] = filter_id_support
+    ret, resume = list_all_event(ctx.obj['TOKEN'], customer_id, contract_id, params)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 
@@ -86,8 +95,8 @@ def signup_all(ctx, customer_id, contract_id):
 @click.option("--contract_id", prompt="-contract id to link eventss", help="...")
 @click.option("--event_id", prompt="event id to view", help="...")
 @click.pass_context
-def signup_one(ctx, customer_id, contract_id, event_id):
+def list_one(ctx, customer_id, contract_id, event_id):
     click.echo(f"viewing event {event_id}")
-    ret, resume = signup_one_event(ctx.obj['TOKEN'], customer_id, contract_id, event_id)
+    ret, resume = list_one_event(ctx.obj['TOKEN'], customer_id, contract_id, event_id)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")

@@ -7,28 +7,23 @@ from django.shortcuts import get_object_or_404
 
 class EventSerializer(serializers.ModelSerializer):
     contact_client = serializers.SerializerMethodField()
-    client_name = serializers.SerializerMethodField()
     support_contact = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
-        fields = ['client_name', 'contact_client', 'id', 'begin_date', 'begin_hour', 'end_date', 'end_hour', 'location',
+        fields = ['contact_client', 'id', 'begin_date', 'begin_hour', 'end_date', 'end_hour', 'location',
                   'notes', 'attendees_count', 'support_contact', 'support_user', 'author_user',
                   'time_created', 'time_modified']
 
     def get_contact_client(self, obj):
         contract_exist = get_object_or_404(Contract, id=obj.contract_id)
         customer_exist = get_object_or_404(Customer, id=contract_exist.customer_id)
-        return customer_exist.client_name, customer_exist.email, str(customer_exist.phone)
-
-    def get_client_name(self, obj):
-        contract_exist = get_object_or_404(Contract, id=obj.contract_id)
-        customer_exist = get_object_or_404(Customer, id=contract_exist.customer_id)
-        return customer_exist.enterprise_name
+        return {"Customer": customer_exist.enterprise_name, "contact": customer_exist.client_name,
+                "email": customer_exist.email, "phone": str(customer_exist.phone)}
 
     def get_support_contact(self, obj):
         user_exist = get_object_or_404(UserProfile, id=obj.support_user_id)
-        return user_exist.first_name, user_exist.last_name
+        return {"Nom support": user_exist.first_name, "prenom support": user_exist.last_name}
 
 
 class EventUpdSerializer(serializers.ModelSerializer):

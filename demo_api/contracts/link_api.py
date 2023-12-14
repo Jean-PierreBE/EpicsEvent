@@ -1,5 +1,6 @@
 import requests
 from demo_api.constants import END_POINT, NULL_VALUE
+from urllib.parse import urlencode
 
 
 def create_contract(token, customer_id, sign_date, amount_contract, saldo_contract, status_contract):
@@ -49,15 +50,17 @@ def update_contract(token, customer_id, contract_id, sign_date, amount_contract,
     return r.status_code, r.content
 
 
-def signup_all_contract(token, customer_id):
+def list_all_contract(token, customer_id, params={}):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
-    print(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"])
+    query_params = ''
+    if params:
+        query_params = '?' + urlencode(params)
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) +
-                     END_POINT["CONTRACT"], headers=headers)
+                     END_POINT["CONTRACT"] + query_params, headers=headers)
     return r.status_code, r.content
 
 
-def signup_one_contract(token, customer_id, contract_id):
+def list_one_contract(token, customer_id, contract_id):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"] +
                      str(contract_id), headers=headers)

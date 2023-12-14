@@ -1,5 +1,6 @@
 import requests
 from demo_api.constants import END_POINT, NULL_VALUE
+from urllib.parse import urlencode
 
 
 def create_event(token, customer_id, contract_id, begin_date, begin_hour, end_date, end_hour, location,
@@ -47,14 +48,17 @@ def update_event(token, customer_id, contract_id, event_id, begin_date, begin_ho
     return r.status_code, r.content
 
 
-def signup_all_event(token, customer_id, contract_id):
+def list_all_event(token, customer_id, contract_id, params={}):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
+    query_params = ''
+    if params:
+        query_params = '?' + urlencode(params)
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"] +
-                     str(contract_id) + END_POINT["EVENT"], headers=headers)
+                     str(contract_id) + END_POINT["EVENT"] + query_params, headers=headers)
     return r.status_code, r.content
 
 
-def signup_one_event(token, customer_id, contract_id, event_id):
+def list_one_event(token, customer_id, contract_id, event_id):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"] +
                      str(contract_id) + END_POINT["EVENT"] + str(event_id), headers=headers)

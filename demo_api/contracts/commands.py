@@ -1,5 +1,5 @@
 import click
-from .link_api import create_contract, delete_contract, update_contract, signup_all_contract, signup_one_contract
+from .link_api import create_contract, delete_contract, update_contract, list_all_contract, list_one_contract
 from demo_api.utilities import format_date_json
 from demo_api.constants import NULL_VALUE
 
@@ -62,9 +62,18 @@ def update(ctx, customer_id, contract_id, sign_date, amount_contract, saldo_cont
 
 @contracts.command()
 @click.option("--customer_id", prompt="-customer id linked to the contract", help="...")
+@click.option("--filter_status", prompt="-status of contract (leave blank if you don't want to fill)",
+              default=NULL_VALUE, help="...")
+@click.option("--filter_saldo", prompt="-amount of saldo (leave blank if you don't want to fill)",
+              default=NULL_VALUE, help="...")
 @click.pass_context
-def signup_all(ctx, customer_id):
-    ret, resume = signup_all_contract(ctx.obj['TOKEN'], customer_id)
+def list_all(ctx, customer_id, filter_status, filter_saldo):
+    params = {}
+    if filter_status != NULL_VALUE:
+        params["status_contract"] = filter_status
+    if filter_saldo != NULL_VALUE:
+        params["saldo_contract"] = filter_saldo
+    ret, resume = list_all_contract(ctx.obj['TOKEN'], customer_id, params)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")
 
@@ -73,8 +82,8 @@ def signup_all(ctx, customer_id):
 @click.option("--customer_id", prompt="-customer id linked to the contract", help="...")
 @click.option("--contract_id", prompt="contract id to view", help="...")
 @click.pass_context
-def signup_one(ctx, customer_id, contract_id):
+def list_one(ctx, customer_id, contract_id):
     click.echo(f"viewing contract {contract_id}")
-    ret, resume = signup_one_contract(ctx.obj['TOKEN'], customer_id, contract_id)
+    ret, resume = list_one_contract(ctx.obj['TOKEN'], customer_id, contract_id)
     click.echo(f"return code {ret}")
     click.echo(f"resume {resume}")

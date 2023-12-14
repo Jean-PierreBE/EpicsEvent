@@ -52,13 +52,13 @@ def update_user(token, user_id, pseudo, first_name, last_name, email, role, pass
     return r.status_code, r.content
 
 
-def signup_all_user(token):
+def list_all_user(token):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["SIGNUP"], headers=headers)
     return r.status_code, r.content
 
 
-def signup_one_user(token, user_id):
+def list_one_user(token, user_id):
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["SIGNUP"] + str(user_id), headers=headers)
     return r.status_code, r.content
