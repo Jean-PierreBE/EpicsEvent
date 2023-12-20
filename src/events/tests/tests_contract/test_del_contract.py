@@ -20,7 +20,9 @@ def test_contract_delete_ok_ges(commercial, gestionnaire, gestionnaire_client):
                         author_user=gestionnaire)
     contract.save()
     response = gestionnaire_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/")
+    count = Contract.objects.filter(id=contract.id).count()
     assert response.status_code == status.HTTP_204_NO_CONTENT, response.content
+    assert count == 0
 
 
 @pytest.mark.django_db

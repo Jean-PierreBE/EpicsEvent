@@ -8,7 +8,7 @@ class OnlyCom(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        if request.user.role == 'COM':
+        if request.user.role == 'COM' or request.user.is_admin:
             return True
 
     def has_object_permission(self, request, view, obj):
@@ -16,5 +16,5 @@ class OnlyCom(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        if request.user.role == 'COM':
+        if request.user.role == 'COM' or request.user.is_admin:
             return True

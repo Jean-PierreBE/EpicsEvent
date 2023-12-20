@@ -25,8 +25,9 @@ Les autres fichiers sont :
   - `pip install -r requirements.txt`
 
 ## Lancement du programme
-Il faut au préalable avoir installé et configuré une base de données PostgreSQL et ensuite mettre à jour le fichier .venv
-dans src/EpicEvent/
+Il faut au préalable avoir installé et configuré une base de données PostgreSQL.
+
+Renommer .env.example en .env et remplir les variables.
 - Pour créer les tables on tape sur la ligne de commande dans le répertoire src:
   - `python manage.py makemigrations`
   - `python manage.py migrate`
