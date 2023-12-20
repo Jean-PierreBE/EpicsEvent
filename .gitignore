@@ -87,3 +87,6 @@ local_settings.py
 
 .env
 db.sqlite3
+/src/users_api/migrations/
+/src/events/migrations/
+!/src/EpicEvent/.env
