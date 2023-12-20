@@ -26,26 +26,11 @@ def update_user(token, user_id, pseudo, first_name, last_name, email, role, pass
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.get(END_POINT["URL"] + END_POINT["SIGNUP"] + str(user_id), headers=headers).json()
     params = {}
-    if pseudo == NULL_VALUE:
-        params["pseudo"] = r["pseudo"]
-    else:
-        params["pseudo"] = pseudo
-    if first_name == NULL_VALUE:
-        params["first_name"] = r["first_name"]
-    else:
-        params["first_name"] = first_name
-    if last_name == NULL_VALUE:
-        params["last_name"] = r["last_name"]
-    else:
-        params["last_name"] = last_name
-    if email == NULL_VALUE:
-        params["email"] = r["email"]
-    else:
-        params["email"] = email
-    if role == NULL_VALUE:
-        params["role"] = r["role"]
-    else:
-        params["role"] = role
+    params["pseudo"] = r["pseudo"] if pseudo == NULL_VALUE else pseudo
+    params["first_name"] = r["first_name"] if first_name == NULL_VALUE else first_name
+    params["last_name"] = r["last_name"] if last_name == NULL_VALUE else last_name
+    params["email"] = r["email"] if email == NULL_VALUE else email
+    params["role"] = r["role"] if role == NULL_VALUE else role
     params["password"] = password
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.put(END_POINT["URL"] + END_POINT["SIGNUP"] + str(user_id) + "/", json=params, headers=headers)

@@ -1,9 +1,9 @@
 # Create your views here.
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from events.permissions.perm_customer import OnlyCom
+from events.permissions.customer import OnlyCom
 from events.models import Customer
-from events.serializers.seri_customer import CustomerSerializer, CustomerUpdSerializer
+from events.serializers.customer import CustomerSerializer, CustomerUpdSerializer
 
 
 class CustomerView(viewsets.ModelViewSet):

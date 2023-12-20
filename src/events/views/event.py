@@ -2,8 +2,8 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from events.models import Event
-from events.serializers.seri_event import EventSerializer, EventUpdSerializer
-from events.permissions.perm_event import UpdEvent
+from events.serializers.event import EventSerializer, EventUpdSerializer
+from events.permissions.event import UpdEvent
 from django_filters.rest_framework import DjangoFilterBackend
 
 

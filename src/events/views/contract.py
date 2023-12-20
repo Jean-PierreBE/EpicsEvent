@@ -1,9 +1,9 @@
 # Create your views here.
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from events.permissions.perm_contract import UpdContract
+from events.permissions.contract import UpdContract
 from events.models import Contract
-from events.serializers.seri_contract import ContractSerializer, ContractUpdSerializer
+from events.serializers.contract import ContractSerializer, ContractUpdSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 

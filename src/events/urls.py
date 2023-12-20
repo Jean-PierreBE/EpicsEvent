@@ -1,8 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from events.views.view_customer import CustomerView
-from events.views.view_contract import ContractView
-from events.views.view_event import EventView
+from events.views.customer import CustomerView
+from events.views.contract import ContractView
+from events.views.event import EventView
 
 router = DefaultRouter()
 router.register('customers', CustomerView, basename='customer')

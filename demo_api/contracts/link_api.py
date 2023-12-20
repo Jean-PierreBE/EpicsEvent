@@ -28,22 +28,10 @@ def update_contract(token, customer_id, contract_id, sign_date, amount_contract,
     r = requests.get(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"] +
                      str(contract_id), headers=headers).json()
     params = {}
-    if sign_date == NULL_VALUE:
-        params["sign_date"] = r["sign_date"]
-    else:
-        params["sign_date"] = sign_date
-    if amount_contract == NULL_VALUE:
-        params["amount_contract"] = r["amount_contract"]
-    else:
-        params["amount_contract"] = amount_contract
-    if saldo_contract == NULL_VALUE:
-        params["saldo_contract"] = r["saldo_contract"]
-    else:
-        params["saldo_contract"] = saldo_contract
-    if status_contract == NULL_VALUE:
-        params["status_contract"] = r["status_contract"]
-    else:
-        params["status_contract"] = status_contract
+    params["sign_date"] = r["sign_date"] if sign_date == NULL_VALUE else sign_date
+    params["amount_contract"] = r["amount_contract"] if amount_contract == NULL_VALUE else amount_contract
+    params["saldo_contract"] = r["saldo_contract"] if saldo_contract == NULL_VALUE else saldo_contract
+    params["status_contract"] = r["status_contract"] if status_contract == NULL_VALUE else status_contract
     headers = {'accept': 'application/json', 'Authorization': 'Bearer ' + token}
     r = requests.put(END_POINT["URL"] + END_POINT["CUSTOMER"] + str(customer_id) + END_POINT["CONTRACT"] +
                      str(contract_id) + "/", json=params, headers=headers)
