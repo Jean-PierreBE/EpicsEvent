@@ -15,7 +15,9 @@ def test_contract_del_ok_com(commercial, commercial_client):
                         author_user=commercial)
     customer.save()
     response = commercial_client.delete(f"/customers/{customer.id}/")
+    count = Customer.objects.filter(id=customer.id).count()
     assert response.status_code == status.HTTP_204_NO_CONTENT, response.content
+    assert count == 0
 
 
 @pytest.mark.django_db
@@ -29,7 +31,9 @@ def test_contract_del_nok_ges(commercial, gestionnaire_client):
                         author_user=commercial)
     customer.save()
     response = gestionnaire_client.delete(f"/customers/{customer.id}/")
+    count = Customer.objects.filter(id=customer.id).count()
     assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    assert count == 1
 
 
 @pytest.mark.django_db
@@ -43,4 +47,6 @@ def test_contract_del_nok_sup(commercial, support_client):
                         author_user=commercial)
     customer.save()
     response = support_client.delete(f"/customers/{customer.id}/")
+    count = Customer.objects.filter(id=customer.id).count()
     assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    assert count == 1

@@ -4,7 +4,7 @@ from events.models import Customer, Contract
 
 
 @pytest.mark.django_db
-def test_contract_signup_all(commercial, gestionnaire, gestionnaire_client):
+def test_contract_list_all(commercial, gestionnaire, gestionnaire_client):
     customer = Customer(enterprise_name='BELGACOM',
                         client_name='moi',
                         information='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ',
@@ -27,11 +27,13 @@ def test_contract_signup_all(commercial, gestionnaire, gestionnaire_client):
                         author_user=gestionnaire)
     contract.save()
     response = gestionnaire_client.get(f"/customers/{customer.id}/contracts/")
+    count = Contract.objects.filter(customer_id=customer.id).count()
     assert response.status_code == status.HTTP_200_OK, response.content
+    assert count == 2
 
 
 @pytest.mark.django_db
-def test_contract_signup_one(commercial, gestionnaire, gestionnaire_client):
+def test_contract_list_one(commercial, gestionnaire, gestionnaire_client):
     customer = Customer(enterprise_name='BELGACOM',
                         client_name='moi',
                         information='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ',
@@ -47,4 +49,6 @@ def test_contract_signup_one(commercial, gestionnaire, gestionnaire_client):
                         author_user=gestionnaire)
     contract.save()
     response = gestionnaire_client.get(f"/customers/{customer.id}/contracts/{contract.id}/")
+    count = Contract.objects.filter(id=contract.id).count()
     assert response.status_code == status.HTTP_200_OK, response.content
+    assert count == 1

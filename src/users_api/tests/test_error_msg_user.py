@@ -20,7 +20,7 @@ def test_role_error(ges_client):
 
 
 @pytest.mark.django_db
-def test_put_com_user(com_client):
+def test_create_same_user(ges_client):
     user_test = UserProfile(pseudo="test01",
                             first_name="prenom01",
                             last_name="nom01",
@@ -30,18 +30,19 @@ def test_put_com_user(com_client):
     user_test.save()
     data = {
         "pseudo": "test01",
-        "first_name": "prenom01",
-        "last_name": "nom01",
-        "email": "nom01@mail.be",
+        "first_name": "prenom02",
+        "last_name": "nom02",
+        "email": "nom02@mail.be",
         "role": "GES",
         "password": PASSWORD_TEST,
     }
-    response = com_client.put(f"/signup/{user_test.id}/", data=data)
-    assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    response = ges_client.post("/signup/", data=data)
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
+    assert str(response.data["pseudo"][0]) == 'user profile with this pseudo already exists.'
 
 
 @pytest.mark.django_db
-def test_put_sup_user(sup_client):
+def test_put_same_email(ges_client):
     user_test = UserProfile(pseudo="test01",
                             first_name="prenom01",
                             last_name="nom01",
@@ -50,12 +51,13 @@ def test_put_sup_user(sup_client):
                             password=PASSWORD_TEST)
     user_test.save()
     data = {
-        "pseudo": "test01",
-        "first_name": "prenom01",
-        "last_name": "nom01",
+        "pseudo": "test02",
+        "first_name": "prenom02",
+        "last_name": "nom02",
         "email": "nom01@mail.be",
         "role": "GES",
         "password": PASSWORD_TEST,
     }
-    response = sup_client.put(f"/signup/{user_test.id}/", data=data)
-    assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    response = ges_client.post("/signup/", data=data)
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.content
+    assert str(response.data["email"][0]) == 'user profile with this email already exists.'

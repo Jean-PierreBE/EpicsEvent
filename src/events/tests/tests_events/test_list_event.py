@@ -4,7 +4,7 @@ from events.models import Customer, Contract, Event
 
 
 @pytest.mark.django_db
-def test_event_signup_all(gestionnaire, support, commercial, gestionnaire_client):
+def test_event_list_all(gestionnaire, support, commercial, gestionnaire_client):
     customer = Customer(enterprise_name='BELGACOM',
                         client_name='moi',
                         information='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ',
@@ -30,12 +30,25 @@ def test_event_signup_all(gestionnaire, support, commercial, gestionnaire_client
                   contract_id=contract.id,
                   author_user=commercial)
     event.save()
+    event = Event(begin_date="2023-12-31",
+                  begin_hour="12:00:00",
+                  end_date="2023-12-31",
+                  end_hour="23:00:00",
+                  location="la bas",
+                  notes="ras",
+                  attendees_count=100,
+                  support_user_id=support.id,
+                  contract_id=contract.id,
+                  author_user=commercial)
+    event.save()
     response = gestionnaire_client.get(f"/customers/{customer.id}/contracts/{contract.id}/events/")
+    count = Event.objects.filter(contract_id=contract.id).count()
     assert response.status_code == status.HTTP_200_OK, response.content
+    assert count == 2
 
 
 @pytest.mark.django_db
-def test_event_signup_one(gestionnaire, support, commercial, gestionnaire_client):
+def test_event_list_one(gestionnaire, support, commercial, gestionnaire_client):
     customer = Customer(enterprise_name='BELGACOM',
                         client_name='moi',
                         information='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ',
@@ -62,4 +75,6 @@ def test_event_signup_one(gestionnaire, support, commercial, gestionnaire_client
                   author_user=commercial)
     event.save()
     response = gestionnaire_client.get(f"/customers/{customer.id}/contracts/{contract.id}/events/{event.id}/")
+    count = Event.objects.filter(id=event.id).count()
     assert response.status_code == status.HTTP_200_OK, response.content
+    assert count == 1

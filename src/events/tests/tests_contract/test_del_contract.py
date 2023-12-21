@@ -42,7 +42,9 @@ def test_contract_delete_ok_same_com(commercial, gestionnaire, commercial_client
                         author_user=gestionnaire)
     contract.save()
     response = commercial_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/")
+    count = Contract.objects.filter(id=contract.id).count()
     assert response.status_code == status.HTTP_204_NO_CONTENT, response.content
+    assert count == 0
 
 
 @pytest.mark.django_db
@@ -62,7 +64,9 @@ def test_contract_delete_nok_diff_com(commercial, gestionnaire, commercial01_cli
                         author_user=gestionnaire)
     contract.save()
     response = commercial01_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/")
+    count = Contract.objects.filter(id=contract.id).count()
     assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    assert count == 1
 
 
 @pytest.mark.django_db
@@ -82,4 +86,6 @@ def test_contract_delete_nok_sup(commercial, gestionnaire, support_client):
                         author_user=gestionnaire)
     contract.save()
     response = support_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/")
+    count = Contract.objects.filter(id=contract.id).count()
     assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    assert count == 1

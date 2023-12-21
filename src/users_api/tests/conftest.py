@@ -27,7 +27,7 @@ def superuser_client():
 
 
 @pytest.fixture
-def ges_client():
+def ges_user():
     user = UserProfile.objects.create_user(
         pseudo="com",
         first_name="toto",
@@ -36,11 +36,14 @@ def ges_client():
         password=PASSWORD_TEST,
         role="GES",
     )
-    user.is_admin = False
-    user.is_staff = False
-    user.save()
+
+    return user
+
+
+@pytest.fixture
+def ges_client(ges_user):
     client = APIClient()
-    refresh = RefreshToken.for_user(user)
+    refresh = RefreshToken.for_user(ges_user)
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}")
 
     return client

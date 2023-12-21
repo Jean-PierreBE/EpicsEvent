@@ -31,7 +31,9 @@ def test_event_delete_ok_ges(gestionnaire, support, commercial, gestionnaire_cli
                   author_user=commercial)
     event.save()
     response = gestionnaire_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/events/{event.id}/")
+    count = Event.objects.filter(id=event.id).count()
     assert response.status_code == status.HTTP_204_NO_CONTENT, response.content
+    assert count == 0
 
 
 @pytest.mark.django_db
@@ -62,7 +64,9 @@ def test_event_delete_ok_sup(gestionnaire, support, commercial, support_client):
                   author_user=commercial)
     event.save()
     response = support_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/events/{event.id}/")
+    count = Event.objects.filter(id=event.id).count()
     assert response.status_code == status.HTTP_204_NO_CONTENT, response.content
+    assert count == 0
 
 
 @pytest.mark.django_db
@@ -93,7 +97,9 @@ def test_event_delete_nok_sup(gestionnaire, support, commercial, support01_clien
                   author_user=commercial)
     event.save()
     response = support01_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/events/{event.id}/")
+    count = Event.objects.filter(id=event.id).count()
     assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    assert count == 1
 
 
 @pytest.mark.django_db
@@ -124,4 +130,6 @@ def test_event_delete_nok_com(gestionnaire, support, commercial, commercial_clie
                   author_user=commercial)
     event.save()
     response = commercial_client.delete(f"/customers/{customer.id}/contracts/{contract.id}/events/{event.id}/")
+    count = Event.objects.filter(id=event.id).count()
     assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
+    assert count == 1
